@@ -145,9 +145,9 @@
           <div
             v-for="(bar, idx) in normalizeGraph()"
             :key="idx"
-            :style="{height: `${bar}%`}"
-            class="bg-purple-800 border w-10">
-          </div>
+            :style="{ height: `${bar}%` }"
+            class="bg-purple-800 border w-10"
+          ></div>
         </div>
         <button
           @click="sel = null"
@@ -206,7 +206,8 @@ export default {
           `https://min-api.cryptocompare.com/data/price?fsym=${currentTicker.name}&tsyms=USD&api_key=cfe1d61c87c7ceffc8714ec74a42849131472e48f2239ddae7eedef81e15ee48`
         );
         const data = await f.json();
-        this.tickers.find(t => t.name === currentTicker.name).price = data.USD > 1 ? data.USD.toFixed(2) : data.USD.toPrecision(2);
+        this.tickers.find((t) => t.name === currentTicker.name).price =
+          data.USD > 1 ? data.USD.toFixed(2) : data.USD.toPrecision(2);
 
         if (this.sel?.name === currentTicker.name) {
           this.graph.push(data.USD);
@@ -225,9 +226,11 @@ export default {
     },
 
     normalizeGraph() {
-      const  maxValue = Math.max(...this.graph);
-      const  minValue = Math.min(...this.graph);
-      return this.graph.map(price => 5 + ((price - minValue) * 95) / (maxValue - minValue));
+      const maxValue = Math.max(...this.graph);
+      const minValue = Math.min(...this.graph);
+      return this.graph.map(
+        (price) => 5 + ((price - minValue) * 95) / (maxValue - minValue)
+      );
     }
   }
 };
